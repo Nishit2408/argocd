@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maven-app-deploy
+  labels:
+    app: maven-app-app
+spec:
+  selector:
+    matchLabels:
+      app: maven-app-app
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: maven-app-app
+    spec:
+      containers:
+      - name: maven-app-app
+        image: nishit2408/harbor
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
